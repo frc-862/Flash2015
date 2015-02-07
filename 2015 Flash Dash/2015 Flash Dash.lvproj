@@ -221,20 +221,21 @@
 				<Property Name="Bld_buildSpecName" Type="Str">FRC_Dashboard</Property>
 				<Property Name="Bld_excludeLibraryItems" Type="Bool">true</Property>
 				<Property Name="Bld_excludePolymorphicVIs" Type="Bool">true</Property>
-				<Property Name="Bld_localDestDir" Type="Path">../builds/FRC_Dashboard</Property>
-				<Property Name="Bld_localDestDirType" Type="Str">relativeToCommon</Property>
+				<Property Name="Bld_localDestDir" Type="Path">/C/Program Files (x86)/FRC Dashboard</Property>
 				<Property Name="Bld_modifyLibraryFile" Type="Bool">true</Property>
 				<Property Name="Bld_previewCacheID" Type="Str">{F12754D6-B5E0-496F-B50C-3EDB6F368199}</Property>
 				<Property Name="Bld_version.build" Type="Int">32790</Property>
 				<Property Name="Bld_version.major" Type="Int">15</Property>
 				<Property Name="Destination[0].destName" Type="Str">Dashboard.exe</Property>
-				<Property Name="Destination[0].path" Type="Path">../builds/FRC_Dashboard/Dashboard.exe</Property>
+				<Property Name="Destination[0].path" Type="Path">/C/Program Files (x86)/FRC Dashboard/Dashboard.exe</Property>
+				<Property Name="Destination[0].path.type" Type="Str">&lt;none&gt;</Property>
 				<Property Name="Destination[0].type" Type="Str">App</Property>
 				<Property Name="Destination[1].destName" Type="Str">Support Directory</Property>
-				<Property Name="Destination[1].path" Type="Path">../builds/FRC_Dashboard/data</Property>
+				<Property Name="Destination[1].path" Type="Path">/C/Program Files (x86)/FRC Dashboard/data</Property>
+				<Property Name="Destination[1].path.type" Type="Str">&lt;none&gt;</Property>
 				<Property Name="DestinationCount" Type="Int">2</Property>
 				<Property Name="Exe_iconItemID" Type="Ref">/My Computer/Support/App EXE.ico</Property>
-				<Property Name="Source[0].itemID" Type="Str">{30D03B27-784B-4100-8001-2DBC750C82DA}</Property>
+				<Property Name="Source[0].itemID" Type="Str">{1CB910D5-25D1-4CE7-B9B8-CF9C7FD9341B}</Property>
 				<Property Name="Source[0].type" Type="Str">Container</Property>
 				<Property Name="Source[1].destinationIndex" Type="Int">0</Property>
 				<Property Name="Source[1].itemID" Type="Ref">/My Computer/Dashboard Main.vi</Property>
