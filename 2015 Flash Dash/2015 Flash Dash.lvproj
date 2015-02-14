@@ -29,6 +29,7 @@
 		<Item Name="VideoControlMode.ctl" Type="VI" URL="../VideoControlMode.ctl"/>
 		<Item Name="GetFtp.vi" Type="VI" URL="../GetFtp.vi"/>
 		<Item Name="putFtp.vi" Type="VI" URL="../putFtp.vi"/>
+		<Item Name="Video State.vi" Type="VI" URL="../Video State.vi"/>
 		<Item Name="Dependencies" Type="Dependencies">
 			<Item Name="vi.lib" Type="Folder">
 				<Item Name="IMAQ Create" Type="VI" URL="/&lt;vilib&gt;/vision/Basics.llb/IMAQ Create"/>
@@ -235,6 +236,7 @@
 			</Item>
 			<Item Name="lvinput.dll" Type="Document" URL="/&lt;resource&gt;/lvinput.dll"/>
 			<Item Name="Prepare Joystick Data for Displays.vi" Type="VI" URL="../Prepare Joystick Data for Displays.vi"/>
+			<Item Name="OpenIniInNotepad.vi" Type="VI" URL="../OpenIniInNotepad.vi"/>
 			<Item Name="Video State.vi" Type="VI" URL="../../../../../../Users/AVENGER/Desktop/2015 FlashDash/Video State.vi"/>
 		</Item>
 		<Item Name="Build Specifications" Type="Build">
