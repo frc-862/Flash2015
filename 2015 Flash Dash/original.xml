@@ -1,0 +1,164 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<postxml>
+  <module>
+    <service>DHCPS4.BRIDGE-1</service>
+    <dhcps4>
+      <seqno>2</seqno>
+      <max>2</max>
+      <count>2</count>
+      <entry>
+        <uid>DHCPS4-1</uid>
+        <start>10.8.62.20</start>
+        <end>199</end>
+        <network>10.8.62.0</network>
+        <mask>24</mask>
+        <domain />
+        <leasetime>86400</leasetime>
+        <router />
+        <dns>
+          <count>0</count>
+        </dns>
+        <wins>
+          <count>0</count>
+        </wins>
+        <staticleases>
+          <seqno>1</seqno>
+          <max>24</max>
+          <count>0</count>
+        </staticleases>
+      </entry>
+      <entry>
+        <uid>DHCPS4-2</uid>
+        <start>100</start>
+        <end>199</end>
+        <domain />
+        <leasetime>86400</leasetime>
+        <router />
+        <dns>
+          <count>0</count>
+        </dns>
+        <wins>
+          <count>0</count>
+        </wins>
+        <staticleases>
+          <seqno>1</seqno>
+          <max>24</max>
+          <count>0</count>
+        </staticleases>
+      </entry>
+    </dhcps4>
+    <inf>
+      <uid>BRIDGE-1</uid>
+      <active>1</active>
+      <phyinf>ETH-1</phyinf>
+      <defaultroute>100</defaultroute>
+      <inet>INET-1</inet>
+      <dhcps4>DHCPS4-1</dhcps4>
+      <web>80</web>
+      <hnap>1</hnap>
+      <trafficctrl>TRAFFICCTRL-1</trafficctrl>
+      <neap>1</neap>
+      <nameresolve>1</nameresolve>
+      <upnp>
+        <count>1</count>
+        <entry>urn:schemas-wifialliance-org:device:WFADevice:1</entry>
+      </upnp>
+      <name />
+      <comment />
+      <lowerlayer />
+      <upperlayer />
+      <schedule />
+      <bwc />
+      <dhcps6 />
+      <ddns4 />
+      <ddns6 />
+      <dns4 />
+      <dns6 />
+      <nat />
+      <weballow>
+        <hostv4ip />
+      </weballow>
+      <flets />
+      <icmp />
+      <backup />
+      <chkinterval />
+      <child />
+      <dhcpc6 />
+      <dhcpdetect />
+      <infprevious />
+      <infnext />
+      <disable />
+    </inf>
+    <inet>
+      <entry>
+        <uid>INET-1</uid>
+        <addrtype>ipv4</addrtype>
+        <ipv4>
+          <static>1</static>
+          <ipaddr>10.8.62.1</ipaddr>
+          <mask>8</mask>
+          <gateway>10.8.62.4</gateway>
+          <mtu>1500</mtu>
+          <dns>
+            <count>0</count>
+          </dns>
+        </ipv4>
+      </entry>
+    </inet>
+  </module>
+  <module>
+    <service>RUNTIME.INF.BRIDGE-1</service>
+    <runtime>
+      <inf>
+        <uid>BRIDGE-1</uid>
+        <ipalias>
+          <cnt>2</cnt>
+          <ipv4>
+            <ipaddr>192.168.0.50</ipaddr>
+            <ipaddr>169.254.127.30</ipaddr>
+          </ipv4>
+        </ipalias>
+        <devnam>br0</devnam>
+        <phyinf>ETH-1</phyinf>
+        <defaultroute>100</defaultroute>
+        <upperlayer />
+        <lowerlayer />
+        <inet>
+          <uid>INET-1</uid>
+          <addrtype>ipv4</addrtype>
+          <ipv4>
+            <static>1</static>
+            <valid>1</valid>
+            <mtu>1500</mtu>
+            <ipaddr>10.8.62.1</ipaddr>
+            <mask>8</mask>
+            <gateway>10.8.62.4</gateway>
+            <domain />
+          </ipv4>
+          <uptime>29</uptime>
+        </inet>
+        <dhcps4>
+          <pool>
+            <start>10.8.62.20</start>
+            <end>10.8.62.199</end>
+            <leasetime>86400</leasetime>
+            <network>10.8.62.0</network>
+            <mask>24</mask>
+          </pool>
+        </dhcps4>
+      </inf>
+    </runtime>
+    <SETCFG>ignore</SETCFG>
+    <ACTIVATE>ignore</ACTIVATE>
+  </module>
+  <module>
+    <service>RUNTIME.SWITCHMODE</service>
+    <runtime>
+      <device>
+        <switchmode>AP2G</switchmode>
+      </device>
+    </runtime>
+    <SETCFG>ignore</SETCFG>
+    <ACTIVATE>ignore</ACTIVATE>
+  </module>
+</postxml>
