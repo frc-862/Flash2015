@@ -59,7 +59,8 @@ class DriveTrain(Subsystem):
 
     def setStrafe(self, amount):
         """Sets the strafe motors. USE THIS, NOT THE strafeDrive DIRECTLY!!! YOU CAN RUN THE MOTORS AGAINST EACHOTHER!"""
-        self._strafeDrive.setLeftRightMotorOutputs(amount, -amount)  # TODO confirm that this won't drive them against each other. Keep in mind that it's simulating the front one as a left motor and back one as a right motor (or the other way around, but you get the point)
+        # TODO confirm that this won't drive them against each other. Keep in mind that it's simulating the front one as a left motor and back one as a right motor (or the other way around, but you get the point)
+        self._strafeDrive.setLeftRightMotorOutputs(amount, -amount)
 
     def arcadeDrive(self, stick,
                     moveStick=None, rotateStick=None,

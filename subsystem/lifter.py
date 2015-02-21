@@ -3,6 +3,7 @@ import wpilib
 
 
 class Lifter(Subsystem):
+
     def __init__(self, robot):
         super().__init__()
 

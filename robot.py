@@ -47,11 +47,12 @@ class FlashRobot(wpilib.IterativeRobot):
 
     def operatorControl(self):
         """Runs the motors with arcade steering."""
-        
+
         self.drivetrain.drive.setSafetyEnabled(True)
-        
+
         while self.isOperatorControl() and self.isEnabled():
-            forcedTurn = None  # Float value, between -1 and 1, representing a forced turn amount. Used for gyro.
+            # Float value, between -1 and 1, representing a forced turn amount. Used for gyro.
+            forcedTurn = None
 
             if abs(self.mainDriverStick.getZ()) > 0.05:  # We're turning, 0.05 is a deadzone
                 self.wasTurning = True
