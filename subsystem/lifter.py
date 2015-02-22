@@ -9,8 +9,8 @@ class Lifter(Subsystem):
 
         self.robot = robot
 
-        self.leftLiftMotor = wpilib.Jaguar(6)
-        self.rightLiftMotor = wpilib.Jaguar(3)
+        self.leftLiftMotor = wpilib.VictorSP(6)
+        self.rightLiftMotor = wpilib.VictorSP(3)
 
         self._liftDrive = wpilib.RobotDrive(self.leftLiftMotor, self.rightLiftMotor)
 

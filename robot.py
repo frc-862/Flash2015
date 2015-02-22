@@ -63,7 +63,7 @@ class FlashRobot(wpilib.IterativeRobot):
                     kp = 0.03  # Proportional constant for how much to turn based on angle offset
                     forcedTurn = -angle*kp
                 else:
-                    forcedTurn = 0  # They were in the deadzone, and gyro is center, so force no turn at all
+                    forcedTurn = None  # They were in the deadzone, and gyro is center, so force no turn at all
 
             if abs(self.mainDriverStick.getZ()) < 0.05 and self.wasTurning:  # We were turning, now we've stopped
                 self.wasTurning = False

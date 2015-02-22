@@ -54,12 +54,12 @@ class DriveTrain(Subsystem):
 
     def arcadeStrafe(self, stick):
         if not self.isTestbench:
-            # Making one of them negative is to reverse the default behavior of inverting one side
             self.setStrafe(stick.getX())
 
     def setStrafe(self, amount):
         """Sets the strafe motors. USE THIS, NOT THE strafeDrive DIRECTLY!!! YOU CAN RUN THE MOTORS AGAINST EACHOTHER!"""
         # TODO confirm that this won't drive them against each other. Keep in mind that it's simulating the front one as a left motor and back one as a right motor (or the other way around, but you get the point)
+        # Making one of them negative is to reverse the default behavior of inverting one side
         self._strafeDrive.setLeftRightMotorOutputs(amount, -amount)
 
     def arcadeDrive(self, stick,
