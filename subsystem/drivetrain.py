@@ -1,6 +1,7 @@
 import wpilib
 from wpilib.command import Subsystem
 import hal
+from util.navx import NavX
 
 
 class DriveTrain(Subsystem):
@@ -41,16 +42,24 @@ class DriveTrain(Subsystem):
             wpilib.LiveWindow.addActuator("Drive Train", "Front Strafe", self.frontTDrive)
             wpilib.LiveWindow.addActuator("Drive Train", "Back Strafe", self.backTDrive)
 
-        self.gyro = wpilib.Gyro(1)
+        if not testBench:
+            try:
+                self.navX = NavX()
+            except Exception as ex:
+                print("Failed to setup NavX: %s" % ex)
+                self.navX = None
+        else:
+            self.navX = None
 
-        wpilib.LiveWindow.addActuator("Drive Train", "Gyro", self.gyro)
+        wpilib.LiveWindow.addActuator("Drive Train", "Gyro", self.navX)
 
     def log(self):
-        wpilib.SmartDashboard.putNumber("Gyro", self.gyro.getAngle())
+        wpilib.SmartDashboard.putNumber("Gyro Yaw", self.navX.getRawYaw())
 
     def zero(self):
         """Resets the encoders and gyro"""
-        self.gyro.reset()
+        if self.navX is not None:
+            self.navX.zero()
 
     def arcadeStrafe(self, stick):
         if not self.isTestbench:

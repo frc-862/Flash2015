@@ -57,18 +57,19 @@ class FlashRobot(wpilib.IterativeRobot):
             if abs(self.mainDriverStick.getZ()) > 0.05:  # We're turning, 0.05 is a deadzone
                 self.wasTurning = True
             else:
-                angle = self.drivetrain.gyro.getAngle()
-                angleDiff = (angle + 180) % 360 - 180  # How far the angle is from 0 TODO verify my math
-                if abs(angleDiff) > 10:  # TODO check if 10 is a good deadzone
-                    kp = 0.03  # Proportional constant for how much to turn based on angle offset
-                    forcedTurn = -angle*kp
-                else:
-                    forcedTurn = None  # They were in the deadzone, and gyro is center, so force no turn at all
+                if self.drivetrain.navX is not None:
+                    angle = self.drivetrain.navX.getYaw()
+                    angleDiff = (angle + 180) % 360 - 180  # How far the angle is from 0 TODO verify my math
+                    if abs(angleDiff) > 10:  # TODO check if 10 is a good deadzone
+                        kp = 0.03  # Proportional constant for how much to turn based on angle offset
+                        forcedTurn = -angle*kp
+                    else:
+                        forcedTurn = None  # They were in the deadzone, and gyro is center, so force no turn at all
 
             if abs(self.mainDriverStick.getZ()) < 0.05 and self.wasTurning:  # We were turning, now we've stopped
                 self.wasTurning = False
 
-                Timer(0.75, lambda: self.drivetrain.gyro.reset()).start()  # Zero the gyro in 0.75 seconds. Need to tune the time.
+                Timer(0.75, lambda: self.drivetrain.navX.zero()).start()  # Zero the gyro in 0.75 seconds. Need to tune the time.
 
             if forcedTurn is not None:
                 self.drivetrain.arcadeDrive(self.mainDriverStick, rotateAxis=2, invertTurn=True, rotateValue=forcedTurn)  # 2 is horizontal on the right stick
