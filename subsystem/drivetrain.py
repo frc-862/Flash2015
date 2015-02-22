@@ -54,7 +54,8 @@ class DriveTrain(Subsystem):
         wpilib.LiveWindow.addActuator("Drive Train", "Gyro", self.navX)
 
     def log(self):
-        wpilib.SmartDashboard.putNumber("Gyro Yaw", self.navX.getRawYaw())
+        if self.navX is not None:
+            wpilib.SmartDashboard.putNumber("Gyro Yaw", self.navX.getRawYaw())
 
     def zero(self):
         """Resets the encoders and gyro"""
