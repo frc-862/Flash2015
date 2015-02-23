@@ -3,6 +3,7 @@ from subsystem.drivetrain import DriveTrain
 from handlers.autonomous import AutonHandler
 from threading import Timer
 from subsystem.lifter import Lifter
+from oi import OI
 
 TEST_BENCH = False  # Whether we're using the test chassis
 
@@ -13,16 +14,22 @@ class FlashRobot(wpilib.IterativeRobot):
         """
         Used as a constructor
         """
+
+        # Initialize Subsystems
         self.drivetrain = DriveTrain(self, testBench=TEST_BENCH)
         self.drivetrain.zero()
+        wpilib.SmartDashboard.putData(self.drivetrain)
 
         if not TEST_BENCH:
             self.lifter = Lifter(self)
+            wpilib.SmartDashboard.putData(self.lifter)
+
+        self.oi = OI(self)  # This line must be after the subsystems are initialized
 
         self.autonHandler = AutonHandler(self)
 
-        self.mainDriverStick = wpilib.Joystick(0)
-        self.copilotStick = wpilib.Joystick(1)
+        self.mainDriverStick = self.oi.driver_joystick
+        self.copilotStick = self.oi.copilot_joystick
 
         self.wasTurning = False
 

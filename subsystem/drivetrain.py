@@ -51,6 +51,8 @@ class DriveTrain(Subsystem):
         else:
             self.navX = None
 
+        self.driveSpeedMult = 1
+
         wpilib.LiveWindow.addActuator("Drive Train", "Gyro", self.navX)
 
     def log(self):
@@ -70,7 +72,7 @@ class DriveTrain(Subsystem):
         """Sets the strafe motors. USE THIS, NOT THE strafeDrive DIRECTLY!!! YOU CAN RUN THE MOTORS AGAINST EACHOTHER!"""
         # TODO confirm that this won't drive them against each other. Keep in mind that it's simulating the front one as a left motor and back one as a right motor (or the other way around, but you get the point)
         # Making one of them negative is to reverse the default behavior of inverting one side
-        self._strafeDrive.setLeftRightMotorOutputs(amount, -amount)
+        self._strafeDrive.setLeftRightMotorOutputs(amount*self.driveSpeedMult, -amount*self.driveSpeedMult)
 
     def arcadeDrive(self, stick,
                     moveStick=None, rotateStick=None,
@@ -105,6 +107,7 @@ class DriveTrain(Subsystem):
                 moveValue = moveStick.getY()
             else:
                 moveValue = moveStick.getRawAxis(moveAxis)
+            moveValue = moveValue*self.driveSpeedMult
 
         if rotateStick is None:
             rotateStick = stick
@@ -114,6 +117,7 @@ class DriveTrain(Subsystem):
                 rotateValue = rotateStick.getX()
             else:
                 rotateValue = rotateStick.getRawAxis(rotateAxis)
+            rotateValue = rotateValue*self.driveSpeedMult
 
         if invertMove:
             moveValue = -moveValue
