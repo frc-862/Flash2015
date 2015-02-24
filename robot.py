@@ -85,8 +85,6 @@ class FlashRobot(wpilib.IterativeRobot):
 
             if not TEST_BENCH:
                 self.drivetrain.arcadeStrafe(self.mainDriverStick)
-
-            if not TEST_BENCH:
                 self.lifter.arcadeDrive(self.copilotStick)
 
             wpilib.Timer.delay(.005)  # give time for the motor to update
