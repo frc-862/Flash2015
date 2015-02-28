@@ -15,6 +15,20 @@ class FlashRobot(wpilib.IterativeRobot):
         Used as a constructor
         """
 
+        '''
+        Hehehehe 'stack' overflow
+
+        def stack_totes():
+          return stack_totes()
+        '''
+
+        '''
+        Stacking mechanism
+
+        stack = [0, 1, 2]
+        stack.append(tote)
+        '''
+
         # Initialize Subsystems
         self.drivetrain = DriveTrain(self, testBench=TEST_BENCH)
         self.drivetrain.zero()
