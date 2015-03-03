@@ -55,7 +55,8 @@ class DriveTrain(Subsystem):
             self.navX = None
 
         self.driveSpeedMult = 0.5
-        self.lastMotorSpeed = 0
+        self.lastMoveValue = 0
+        self.lastStrafeValue = 0
 
         wpilib.LiveWindow.addActuator("Drive Train", "Gyro", self.navX)
 
@@ -76,6 +77,10 @@ class DriveTrain(Subsystem):
         """Sets the strafe motors. USE THIS, NOT THE strafeDrive DIRECTLY!!! YOU CAN RUN THE MOTORS AGAINST EACHOTHER!"""
         # TODO confirm that this won't drive them against each other. Keep in mind that it's simulating the front one as a left motor and back one as a right motor (or the other way around, but you get the point)
         # Making one of them negative is to reverse the default behavior of inverting one side
+
+        amount = self._getRampValue(self.lastStrafeValue, amount, RAMP_AMOUNT)
+        self.lastStrafeValue = amount
+
         self._strafeDrive.setLeftRightMotorOutputs(amount*self.driveSpeedMult, -amount*self.driveSpeedMult)
 
     def arcadeDrive(self, stick,
@@ -136,15 +141,9 @@ class DriveTrain(Subsystem):
         moveValue = self.drive.limit(moveValue)
         rotateValue = self.drive.limit(rotateValue)
 
-        if 0 >= self.lastMotorSpeed > moveValue:
-            moveValue = self.lastMotorSpeed - RAMP_AMOUNT
-        elif 0 <= self.lastMotorSpeed < moveValue:
-            moveValue = self.lastMotorSpeed + RAMP_AMOUNT
+        moveValue = self._getRampValue(self.lastMoveValue, moveValue, RAMP_AMOUNT)
 
-        if moveValue < 0 < self.lastMotorSpeed or moveValue > 0 > self.lastMotorSpeed:
-            moveValue = 0
-
-        self.lastMotorSpeed = moveValue
+        self.lastMoveValue = moveValue
 
         if squaredInputs:
             # square the inputs (while preserving the sign) to increase fine
@@ -174,3 +173,15 @@ class DriveTrain(Subsystem):
                 rightMotorSpeed = -max(-moveValue, -rotateValue)
 
         self.drive.setLeftRightMotorOutputs(leftMotorSpeed*self.driveSpeedMult, rightMotorSpeed*self.driveSpeedMult)
+
+    @staticmethod
+    def _getRampValue(lastValue, desiredValue, rampAmount):
+        if 0 >= lastValue > desiredValue:
+            return lastValue - rampAmount
+        elif 0 <= lastValue < desiredValue:
+            return lastValue + rampAmount
+
+        if desiredValue < 0 < lastValue or desiredValue > 0 > lastValue:
+            return 0
+
+        return desiredValue
