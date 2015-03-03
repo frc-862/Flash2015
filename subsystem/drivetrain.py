@@ -2,6 +2,7 @@ import wpilib
 from wpilib.command import Subsystem
 import hal
 from util.navx import NavX
+from pinout import *
 
 
 RAMP_AMOUNT = 0.006
@@ -30,11 +31,11 @@ class DriveTrain(Subsystem):
             wpilib.LiveWindow.addActuator("Drive Train", "Left Main Motor 1", self.leftMainDriveMotor1)
             wpilib.LiveWindow.addActuator("Drive Train", "Left Main Motor 2", self.leftMainDriveMotor2)
         else:
-            self.rightMainDriveMotor = wpilib.VictorSP(0)
-            self.leftMainDriveMotor = wpilib.VictorSP(9)
+            self.rightMainDriveMotor = wpilib.VictorSP(RIGHT_MAIN_DRIVE)
+            self.leftMainDriveMotor = wpilib.VictorSP(LEFT_MAIN_DRIVE)
 
-            self.frontTDrive = wpilib.VictorSP(2)
-            self.backTDrive = wpilib.VictorSP(5)
+            self.frontTDrive = wpilib.VictorSP(FRONT_STRAFE)
+            self.backTDrive = wpilib.VictorSP(BACK_STRAFE)
 
             self.drive = wpilib.RobotDrive(self.leftMainDriveMotor, self.rightMainDriveMotor)
             self._strafeDrive = wpilib.RobotDrive(self.frontTDrive, self.backTDrive)

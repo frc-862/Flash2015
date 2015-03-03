@@ -1,0 +1,7 @@
+# RoboRIO pins for Flash/Poncho
+
+RIGHT_MAIN_DRIVE = 0
+LEFT_MAIN_DRIVE = 9
+
+FRONT_STRAFE = 2
+BACK_STRAFE = 5
