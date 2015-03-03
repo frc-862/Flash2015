@@ -7,6 +7,7 @@ class SetDriveSpeedMult(Command):
         super().__init__()
         self.requires(robot.drivetrain)
         self.multiplier = multiplier
+        self.robot = robot
 
     def initialize(self):
         self.robot.drivetrain.driveSpeedMult = self.multiplier
