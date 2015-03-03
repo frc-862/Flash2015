@@ -4,6 +4,9 @@ import hal
 from util.navx import NavX
 
 
+RAMP_AMOUNT = 0.006
+
+
 class DriveTrain(Subsystem):
 
     def __init__(self, robot, testBench=False):
@@ -51,7 +54,8 @@ class DriveTrain(Subsystem):
         else:
             self.navX = None
 
-        self.driveSpeedMult = 1
+        self.driveSpeedMult = 0.5
+        self.lastMotorSpeed = 0
 
         wpilib.LiveWindow.addActuator("Drive Train", "Gyro", self.navX)
 
@@ -107,7 +111,6 @@ class DriveTrain(Subsystem):
                 moveValue = moveStick.getY()
             else:
                 moveValue = moveStick.getRawAxis(moveAxis)
-            moveValue = moveValue*self.driveSpeedMult
 
         if rotateStick is None:
             rotateStick = stick
@@ -117,7 +120,6 @@ class DriveTrain(Subsystem):
                 rotateValue = rotateStick.getX()
             else:
                 rotateValue = rotateStick.getRawAxis(rotateAxis)
-            rotateValue = rotateValue*self.driveSpeedMult
 
         if invertMove:
             moveValue = -moveValue
@@ -133,6 +135,16 @@ class DriveTrain(Subsystem):
 
         moveValue = self.drive.limit(moveValue)
         rotateValue = self.drive.limit(rotateValue)
+
+        if 0 >= self.lastMotorSpeed > moveValue:
+            moveValue = self.lastMotorSpeed - RAMP_AMOUNT
+        elif 0 <= self.lastMotorSpeed < moveValue:
+            moveValue = self.lastMotorSpeed + RAMP_AMOUNT
+
+        if moveValue < 0 < self.lastMotorSpeed or moveValue > 0 > self.lastMotorSpeed:
+            moveValue = 0
+
+        self.lastMotorSpeed = moveValue
 
         if squaredInputs:
             # square the inputs (while preserving the sign) to increase fine
@@ -161,4 +173,4 @@ class DriveTrain(Subsystem):
                 leftMotorSpeed = moveValue - rotateValue
                 rightMotorSpeed = -max(-moveValue, -rotateValue)
 
-        self.drive.setLeftRightMotorOutputs(leftMotorSpeed, rightMotorSpeed)
+        self.drive.setLeftRightMotorOutputs(leftMotorSpeed*self.driveSpeedMult, rightMotorSpeed*self.driveSpeedMult)
