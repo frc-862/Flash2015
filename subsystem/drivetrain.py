@@ -6,6 +6,7 @@ from pinout import *
 
 
 RAMP_AMOUNT = 0.006
+RAMP_DOWN_AMOUNT = 0.02
 
 
 class DriveTrain(Subsystem):
@@ -79,7 +80,7 @@ class DriveTrain(Subsystem):
         # TODO confirm that this won't drive them against each other. Keep in mind that it's simulating the front one as a left motor and back one as a right motor (or the other way around, but you get the point)
         # Making one of them negative is to reverse the default behavior of inverting one side
 
-        amount = self._getRampValue(self.lastStrafeValue, amount, RAMP_AMOUNT)
+        amount = self._getRampValue(self.lastStrafeValue, amount, RAMP_AMOUNT, RAMP_DOWN_AMOUNT)
         self.lastStrafeValue = amount
 
         self._strafeDrive.setLeftRightMotorOutputs(amount*self.driveSpeedMult, -amount*self.driveSpeedMult)
@@ -142,7 +143,7 @@ class DriveTrain(Subsystem):
         moveValue = self.drive.limit(moveValue)
         rotateValue = self.drive.limit(rotateValue)
 
-        moveValue = self._getRampValue(self.lastMoveValue, moveValue, RAMP_AMOUNT)
+        moveValue = self._getRampValue(self.lastMoveValue, moveValue, RAMP_AMOUNT, RAMP_DOWN_AMOUNT)
 
         self.lastMoveValue = moveValue
 
@@ -176,11 +177,17 @@ class DriveTrain(Subsystem):
         self.drive.setLeftRightMotorOutputs(leftMotorSpeed*self.driveSpeedMult, rightMotorSpeed*self.driveSpeedMult)
 
     @staticmethod
-    def _getRampValue(lastValue, desiredValue, rampAmount):
+    def _getRampValue(lastValue, desiredValue, rampAmount, downAmount=None):
         if 0 >= lastValue > desiredValue:
             return lastValue - rampAmount
         elif 0 <= lastValue < desiredValue:
             return lastValue + rampAmount
+
+        if downAmount:
+            if desiredValue < lastValue:
+                return lastValue - downAmount
+            elif desiredValue > lastValue:
+                return lastValue + downAmount
 
         if desiredValue < 0 < lastValue or desiredValue > 0 > lastValue:
             return 0
